@@ -1,0 +1,9 @@
+flask
+flask-cors
+diffusers
+torch
+torchvision
+torchaudio
+matplotlib
+transformers
+accelerate

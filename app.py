@@ -10,7 +10,7 @@ app = Flask(__name__)
 cors = CORS(app)
 
 # Load models
-# pipe = load_models.load_stable_diffusion_model()
+pipe = load_models.load_stable_diffusion_model()
 clipseg_model = load_models.load_clipseg()
 
 def get_response_image(image_path):
@@ -25,7 +25,7 @@ def clipseg_inpaint():
     img_url = request.form['img_url']
     seg_prompt = request.form['seg_prompt']
     prompt = request.form['prompt']
-    sample = request.form['sample']
+    sample = request.form.get('sample', False)
 
     # Download image
     img_path = 'img.png'
@@ -36,7 +36,7 @@ def clipseg_inpaint():
         images = inpaint.stable_diffusion_inpaint(prompt, pipe, img_path, mask_filename)
         
 
-        if sample:
+        if sample == True:
             li = []
             for i, img in enumerate(images):
                 name = 'output/image{0}.png'.format(i)
